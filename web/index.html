@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#20201e">
+  <title>豆姐锐评室 · 导播台</title>
+  <link rel="stylesheet" href="/console.css">
+  <script type="module" src="/console.js"></script>
+</head>
+<body>
+  <header class="toolbar">
+    <div class="toolbar-body">
+      <div class="brand">
+        <span class="station-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <div><h1>豆姐锐评室</h1><span class="brand-role">导播工作台</span></div>
+      </div>
+      <nav class="views" aria-label="导播工作区">
+        <button type="button" data-view="live" aria-current="page">现场</button>
+        <button type="button" data-view="editor">插话</button>
+        <button type="button" data-view="persona">人设</button>
+        <button type="button" data-view="rehearsal">排练</button>
+        <button type="button" data-view="settings">设置</button>
+      </nav>
+      <div class="toolbar-utilities">
+        <span id="connection" class="connection" data-tone="pending">连接中</span>
+        <button id="launch" type="button" class="launch">打开舞台 <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </header>
+  <main class="workspace">
+    <section id="view-live" class="workspace-page" aria-labelledby="live-heading">
+      <div class="page-heading"><h2 id="live-heading">直播现场</h2><time id="clock" class="clock"></time></div>
+      <div class="live-grid">
+        <section class="program" aria-label="当前播出">
+          <div class="program-art" aria-hidden="true"></div>
+          <div class="program-copy">
+            <div class="program-meta"><span id="program-state" class="program-state"><i></i><span>同步中</span></span><span id="active-source"></span></div>
+            <h3 id="program-title">豆姐锐评室</h3>
+            <p id="program-prompt" hidden></p>
+            <p id="program-line">正在获取播出状态…</p>
+            <div id="performance-tags" class="performance-tags" hidden></div>
+          </div>
+        </section>
+
+        <section class="panel director" aria-labelledby="director-heading">
+          <div class="panel-head"><h3 id="director-heading">播出控制</h3><span id="director-mode" class="subtle"></span></div>
+          <div class="auto-control">
+            <div><strong>自动接话</strong><small>礼物优先，弹幕和欢迎按 7∶3 穿插</small></div>
+            <button id="auto-toggle" type="button" class="switch" role="switch" aria-checked="true" aria-label="自动接话" disabled><i></i></button>
+          </div>
+          <div class="transport">
+            <button id="skip" type="button" disabled><span class="skip-icon" aria-hidden="true"></span>跳过本条</button>
+            <button id="stop" type="button" class="danger" title="打断当前播出、清空队列并关闭自动接话" disabled><span class="stop-icon" aria-hidden="true"></span>急停</button>
+            <button id="reset" type="button" class="danger" hidden disabled>解除急停</button>
+          </div>
+        </section>
+
+        <section class="panel desk-events" aria-label="事件和播出队列">
+          <div class="list-tabs" aria-label="查看列表">
+            <button type="button" data-list="recent" aria-pressed="true">互动事件</button>
+            <button type="button" data-list="queue" aria-pressed="false">待播 <span id="queue-count" class="count">—</span></button>
+            <button type="button" data-list="history" aria-pressed="false">播出记录</button>
+          </div>
+          <div id="event-empty" class="empty-list"><span class="empty-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>等待直播间互动</strong><p>收到的弹幕和礼物会出现在这里。</p></div>
+          <ul id="event-list" class="event-list" aria-label="互动事件"></ul>
+          <nav id="archive-nav" class="archive-nav" aria-label="历史翻页" hidden>
+            <button id="archive-newest" type="button" class="text-link" hidden>回到最新</button>
+            <button id="archive-newer" type="button" hidden>上一页</button>
+            <button id="archive-older" type="button">更早记录</button>
+          </nav>
+        </section>
+      </div>
+    </section>
+    <section id="view-editor" class="workspace-page" aria-labelledby="editor-heading" hidden>
+      <div class="page-heading"><h2 id="editor-heading">导播插话</h2></div>
+      <section class="panel editor" aria-label="选择插话方式">
+        <div class="mode-tabs" aria-label="插话方式">
+          <button type="button" data-entry="topic" aria-pressed="true">给豆姐投题</button>
+          <button type="button" data-entry="manual" aria-pressed="false">指定台词 / 动作</button>
+        </div>
+        <form id="topic-form">
+          <label>回复对象（选填）<input id="topic-name" maxlength="60" placeholder="在舞台展示的观众昵称"></label>
+          <label for="topic">投稿或话题</label>
+          <textarea id="topic" maxlength="800" required rows="3" placeholder="写下想让豆姐点评的事…"></textarea>
+          <div class="submit-row"><span>豆姐会自己组织回答</span><button class="accent" type="submit" data-play disabled>投题 <b aria-hidden="true">↗</b></button></div>
+        </form>
+        <form id="manual-form" hidden>
+          <label for="manual-text" class="sr-only">要朗读的台词</label>
+          <textarea id="manual-text" maxlength="120" rows="2" placeholder="输入要豆姐照读的台词"></textarea>
+          <div class="field-pair manual-fields">
+            <label>动作<select id="gesture"></select></label>
+            <label>表情<select id="expression"></select></label>
+          </div>
+          <div class="submit-row"><span>可单独演示动作</span><button class="accent" type="submit" data-play disabled>送播 <b aria-hidden="true">↗</b></button></div>
+        </form>
+      </section>
+    </section>
+
+    <section id="view-persona" class="workspace-page" aria-labelledby="persona-heading" hidden>
+      <div class="page-heading"><h2 id="persona-heading">豆姐人设</h2></div>
+      <div class="utility-grid">
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>上麦口吻</h3><span id="persona-state" class="status-pill" aria-live="polite">同步中</span></div>
+          <form id="persona-form">
+            <label for="persona-text">人设提示词</label>
+            <textarea id="persona-text" rows="6" maxlength="1200" required spellcheck="false" disabled></textarea>
+            <p class="field-note">DeepSeek 回弹幕、评投稿和写礼物收尾时使用这段提示词。</p>
+            <div class="persona-actions">
+              <button id="persona-default" class="text-link" type="button" disabled>载入默认人设</button>
+              <button id="persona-save" class="accent" type="submit" disabled>保存人设</button>
+            </div>
+          </form>
+          <details id="room-inventory">
+            <summary>查看舞台陈设和豆姐的穿搭</summary>
+            <dl id="room-inventory-items"></dl>
+          </details>
+        </section>
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>后台试词</h3><span class="subtle">仅导播台可见</span></div>
+          <form id="persona-trial">
+            <div class="mode-tabs" aria-label="试词类型">
+              <button type="button" data-trial-kind="comment" aria-pressed="true">回弹幕</button>
+              <button type="button" data-trial-kind="gift" aria-pressed="false">接礼物</button>
+            </div>
+            <label id="trial-comment-field">观众弹幕<textarea id="trial-comment" rows="2" maxlength="800" required>老板说公司是我第二个家，周末还得回去加班。</textarea></label>
+            <div id="trial-gift-fields" class="field-pair" hidden>
+              <label>礼物名称<input id="trial-gift" list="trial-gifts" maxlength="120" value="跑车" required disabled></label>
+              <label>数量<input id="trial-count" type="number" min="1" max="9999" step="1" value="1" required disabled></label>
+              <datalist id="trial-gifts"></datalist>
+            </div>
+            <p id="trial-note" class="field-note"></p>
+            <div class="form-actions"><button type="submit" id="trial-start" disabled>生成试词</button></div>
+          </form>
+          <div id="trial-result" class="trial-result" aria-live="polite" aria-atomic="true" hidden>
+            <strong id="trial-source"></strong><div id="trial-lines"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-rehearsal" class="workspace-page" aria-labelledby="rehearsal-heading" hidden>
+      <div class="page-heading"><h2 id="rehearsal-heading">互动排练</h2><span class="subtle">使用本机采集入口</span></div>
+      <div class="utility-grid">
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>模拟直播事件</h3></div>
+          <form id="sim-form">
+            <div class="field-pair">
+              <label>观众昵称<input id="sim-name" maxlength="60" value="排练观众" required></label>
+              <label>事件类型<select id="sim-type">
+                <option value="comment">弹幕</option><option value="gift">礼物</option><option value="like">点赞</option><option value="room_join">进场</option><option value="follow">关注</option><option value="fans_club_join">加入粉丝团</option>
+              </select></label>
+            </div>
+            <div id="sim-comment-fields"><label>弹幕内容<textarea id="sim-comment" rows="3" maxlength="500" placeholder="老板说，公司就是我第二个家。" required></textarea></label></div>
+            <div id="sim-gift-fields" hidden>
+              <div class="field-pair"><label>礼物<select id="sim-gift"></select></label><label>展示数量<input id="sim-count" type="number" min="1" max="9999" step="1" value="1"></label></div>
+              <label id="custom-gift-field" hidden>自定义礼物名<input id="sim-custom" maxlength="60" placeholder="输入采集器里的礼物名"></label>
+            </div>
+            <div class="form-actions"><button class="accent" type="submit" data-online disabled>发送模拟事件</button><button type="button" id="sim-combo" data-online hidden disabled>模拟三连击</button></div>
+          </form>
+        </section>
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>接收状态</h3></div>
+          <dl class="status-lines"><div><dt>自动接话</dt><dd id="sim-auto">—</dd></div><div><dt>最新事件</dt><dd id="sim-latest">—</dd></div><div><dt>待播条数</dt><dd id="sim-depth" class="numeric">—</dd></div></dl>
+          <button type="button" class="text-link" data-go="live">回现场查看 <span aria-hidden="true">↗</span></button>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-settings" class="workspace-page" aria-labelledby="settings-heading" hidden>
+      <div class="page-heading"><h2 id="settings-heading">演播室设置</h2></div>
+      <div class="utility-grid">
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>DeepSeek 接话</h3><span id="llm-state" class="status-pill">同步中</span></div>
+          <form id="model-form" autocomplete="off">
+            <label>模型名<input id="model-name" maxlength="100" placeholder="服务默认模型" spellcheck="false"></label>
+            <label>API Key<input id="api-key" type="password" placeholder="输入新密钥" autocomplete="new-password" spellcheck="false"></label>
+            <p id="model-note" class="field-note"></p>
+            <div class="form-actions"><button type="submit" class="accent" data-online disabled>保存设置</button><button id="forget-key" type="button" data-online hidden disabled>移除已存密钥</button></div>
+          </form>
+        </section>
+        <section class="panel utility-card">
+          <div class="panel-head"><h3>语音与采集</h3></div>
+          <dl class="status-lines"><div><dt>豆姐音色</dt><dd id="voice-state">—</dd></div><div><dt>语音引擎</dt><dd>GPT-SoVITS</dd></div><div><dt>舞台窗口</dt><dd id="stage-state">—</dd></div></dl>
+          <p id="voice-note" class="field-note"></p>
+          <label>播报语速<select id="speech-rate" data-online disabled>
+            <option value="0.8">0.8× · 慢速</option>
+            <option value="0.9">0.9× · 稍慢</option>
+            <option value="1">1.0× · 原速</option>
+            <option value="1.18" selected>1.18× · 利落</option>
+            <option value="1.35">1.35× · 快速</option>
+            <option value="1.5">1.5× · 更快</option>
+            <option value="1.6">1.6× · 最快</option>
+          </select></label>
+          <label for="collector-url">本机事件推送地址</label><input id="collector-url" class="endpoint" type="text" readonly>
+        </section>
+      </div>
+    </section>
+  </main>
+  <p id="feedback" role="status" aria-live="polite"></p>
+</body>
+</html>

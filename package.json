@@ -1,0 +1,15 @@
+{
+  "name": "doujie-studio",
+  "private": true,
+  "main": "desktop/main.cjs",
+  "productName": "豆姐锐评室",
+  "engines": { "node": ">=22.12.0" },
+  "devDependencies": {
+    "electron": "45.3.2"
+  },
+  "scripts": {
+    "postinstall": "install-electron",
+    "start": "start-windows.cmd",
+    "dev": "python3 server.py --port 4173"
+  }
+}

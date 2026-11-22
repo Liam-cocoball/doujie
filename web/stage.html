@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102425">
+  <title>豆姐 · 直播舞台</title>
+  <link rel="stylesheet" href="./stage.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}</script>
+</head>
+<body>
+  <main id="stage" class="stage" data-view="fallback">
+    <div class="stand-in" aria-hidden="true"><img src="./assets/preview-girl.jpg" alt=""></div>
+    <canvas id="scarf-canvas" aria-label="豆姐的三维直播间"></canvas>
+    <div class="shade" aria-hidden="true"></div>
+    <canvas id="gift-wall" width="1456" height="216" role="img" aria-label="礼物墙"></canvas>
+    <header class="station">
+      <div class="signature"><span class="radio-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>深夜锐评室</span></div>
+      <span class="live"><i></i><span id="air-label">直播中</span></span>
+    </header>
+    <canvas id="gift-effects" aria-hidden="true"></canvas>
+    <aside id="gift-notice" hidden><span class="gift-icon" aria-hidden="true">✦</span><span id="gift-sender"></span><b id="gift-name"></b></aside>
+    <div class="captions" aria-label="豆姐">
+      <aside id="event-line" aria-label="观众原话" hidden><b id="reply-name" dir="auto"></b><span id="reply-text" dir="auto"></span></aside>
+      <p id="utterance" dir="auto" aria-live="polite" aria-atomic="true"></p>
+    </div>
+    <button id="enable-sound" type="button" aria-label="开启直播声音" title="开启直播声音">开启声音</button>
+  </main>
+  <script src="./speech.js" defer></script>
+  <script type="module" src="./stage.js"></script>
+</body>
+</html>

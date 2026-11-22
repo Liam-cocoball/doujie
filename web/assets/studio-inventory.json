@@ -1,0 +1,17 @@
+{
+  "items": [
+    {"id":"phone","name":"iPhone Duo","brand":"苹果","category":"desk","viewerSide":"left","location":"观众看过去，桌面左侧","appearance":"下半部平放在桌上，上半部沿水平铰链掀起，像台迷你笔记本，银白后盖上的苹果标志朝镜头，内屏朝我","aliases":["手机","折叠屏","折叠机","折叠手机","折叠屏手机","苹果手机","苹果折叠","iPhone","iPhone Duo","Duo"]},
+    {"id":"scarf","name":"莓红色围巾","category":"outfit","viewerSide":"body","location":"我脖子上，围巾尾垂在胸前","appearance":"莓红色，有织纹和流苏","aliases":["围巾","围脖","领巾"]},
+    {"id":"coat","name":"黑色羊毛大衣","category":"outfit","viewerSide":"body","location":"我身上，红围巾下面","appearance":"黑色长袖，羊毛质感","aliases":["大衣","外套","上衣","衣服外套"]},
+    {"id":"skirt","name":"炭灰色半裙","category":"outfit","viewerSide":"body","location":"大衣下摆里面，通常被桌子挡住","appearance":"炭灰色的半裙","aliases":["裙子","裙","半裙","半身裙"]},
+    {"id":"socks","name":"米白色短袜","category":"outfit","viewerSide":"body","location":"脚踝上，在桌子后面","appearance":"米白色棉袜口","aliases":["袜子","短袜","袜","棉袜"]},
+    {"id":"shoes","name":"黑色乐福鞋","category":"outfit","viewerSide":"body","location":"脚上，平时镜头被桌子挡住","appearance":"圆头、黑色，鞋面有光泽","aliases":["鞋子","乐福鞋","皮鞋","鞋"]},
+    {"id":"microphone","name":"悬臂麦克风","category":"desk","viewerSide":"left","location":"画面左侧，麦头伸向我嘴边","appearance":"深色麦头，有金属环和悬臂支架","aliases":["麦克风","话筒","麦架","麦头"]},
+    {"id":"monitor","name":"波形小监视器","category":"desk","viewerSide":"right","location":"桌面右侧，靠后","appearance":"深色小屏上有绿色波形","aliases":["监视器","波形屏","波形小屏","小监视器","监控屏"]},
+    {"id":"mixer","name":"调音台","category":"desk","viewerSide":"center","location":"桌面中央，靠近观众这一侧","appearance":"一排滑杆和小按键","aliases":["调音台","推子","混音台","控制台","滑杆"]},
+    {"id":"lamp","name":"黄铜阅读灯","category":"studio","viewerSide":"left","location":"画面左后方","appearance":"黄铜色灯架，暖色灯罩","aliases":["台灯","阅读灯","灯罩","黄铜灯"]},
+    {"id":"window","name":"夜景窗","category":"studio","viewerSide":"center","location":"我身后","appearance":"窗外是城市夜景，可以看到楼里的灯光和月亮","aliases":["窗户","夜景","窗外","夜景窗","背景窗"]},
+    {"id":"gift_wall","name":"礼物墙","category":"studio","viewerSide":"back","location":"我身后的背景墙上","appearance":"显示最近送礼的观众、礼物和数量","aliases":["礼物墙","送礼墙"]},
+    {"id":"desk","name":"木质直播桌","category":"studio","viewerSide":"center","location":"我面前","appearance":"暖棕色木纹台面，桌沿有金属饰条","aliases":["桌子","桌面","直播桌","木桌"]}
+  ]
+}
